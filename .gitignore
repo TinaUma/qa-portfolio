@@ -1,0 +1,8 @@
+# TAUSIK local tooling — not part of QA portfolio
+.tausik-lib/
+.tausik/
+.push_ticket.json
+
+# OS
+.DS_Store
+Thumbs.db
