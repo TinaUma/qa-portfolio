@@ -1,43 +1,44 @@
-# QA Portfolio — Tina Umasheva
+# QA Portfolio — Тина Юмашева
 
-> **Status: in progress** — Cases are added as I complete sprints #5.1–#5.6 on a live product.
+> **Статус:** в процессе — кейсы добавляются по мере прохождения обучения на реальном продукте (GitLab-тикеты, сквозной сценарий тестирования).
 
-I'm building this portfolio while doing real QA work: writing test cases, filing bug reports, and testing API endpoints on an actual product in GitLab. Each folder below is one complete test case, ready to read like a QA deliverable — not a "project", but a documented testing engagement.
-
----
-
-## Cases
-
-| # | Title | Type | Status |
-|---|-------|------|--------|
-| — | *Sprint 8 — coming after #5.6* | — | 🔜 in progress |
+Собираю портфолио параллельно с реальной QA-работой: пишу тест-кейсы, оформляю баг-репорты, тестирую формы и API на действующем продукте (Сортула). Каждая папка ниже — это законченный кейс тестирования, оформленный как полноценный рабочий артефакт, а не учебный «проект для галочки».
 
 ---
 
-## What each case contains
+## Кейсы
 
-Every case folder follows this structure:
+| № | Название | Тип | Статус |
+|---|---|---|---|
+| 001 | Тестирование формы регистрации (staging.sortula.ru) | Ручное тестирование, UI + API (DevTools) | ✅ Завершён |
+
+---
+
+## Структура каждого кейса
+
+Каждая папка кейса устроена одинаково:
 
 ```
 cases/
-└── NNN-feature-name/
-    ├── README.md          ← test scope, environment, results summary
-    ├── test-cases.md      ← step-by-step test cases with expected/actual
-    ├── bug-reports.md     ← bug report(s) in standard format
-    └── evidence/          ← screenshots, DevTools/Postman exports
+└── NNN-название-фичи/
+    ├── README.md           ← краткое summary: что сделано, сколько багов, инструменты
+    ├── test-analysis.md    ← декомпозиция требований, объекты тестирования, серые зоны
+    ├── checklist.md        ← чек-лист проверок с результатами
+    ├── bug-reports.md      ← найденные баги в стандартном формате
+    └── evidence/           ← скриншоты, референсы интерфейса
 ```
 
-**Bug report format:** ID · Summary · Steps to Reproduce · Expected · Actual · Severity · Priority · Environment · Attachments
+**Формат баг-репорта:** Severity · Priority · Окружение · Шаги воспроизведения · Ожидаемый результат · Фактический результат · Доказательства
 
 ---
 
-## About
+## Обо мне
 
-I'm transitioning into QA Engineering with a background in AI-driven product development. I know the codebase side — which means I test with context: I understand what could break and why.
+Перехожу в QA Engineering с бэкграундом в AI-разработке. Понимаю кодовую базу изнутри — это помогает тестировать осознанно: я вижу, что и почему может сломаться, а не просто следую чек-листу вслепую.
 
-- **Tools:** Postman, DevTools, GitLab, Jira-style trackers
-- **Focus:** functional testing, API testing, regression, bug reporting
-- **Language:** Russian / English
+- **Инструменты:** ручное тестирование, Chrome DevTools (Network), Postman, GitLab
+- **Фокус:** функциональное тестирование, тест-дизайн, регресс, баг-репортинг
+- **Язык:** русский
 
-**AI Engineering portfolio:** [tinacodes.space](https://tinacodes.space)  
+**AI-инженерное портфолио:** [tinacodes.space](https://tinacodes.space)
 **GitHub:** [github.com/TinaUma](https://github.com/TinaUma)
