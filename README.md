@@ -10,7 +10,7 @@
 
 | № | Название | Тип | Статус |
 |---|---|---|---|
-| 001 | Тестирование формы регистрации (staging.sortula.ru) | Ручное UI, DevTools, Postman, SQL (DBeaver) | В процессе — добавляются новые слои |
+| 001 | Тестирование формы регистрации/авторизации (staging.sortula.ru) | Ручное UI, API (Postman), БД (SQL/DBeaver), логи (CLI/grep), мобильный веб + PWA, Android Studio/Logcat | Завершён — 14 дефектов найдено, комплексная проверка всех слоёв |
 
 ---
 
@@ -36,7 +36,7 @@ cases/
 
 Перехожу в QA Engineering с бэкграундом в AI-разработке. Понимаю кодовую базу изнутри — это помогает тестировать осознанно: я вижу, что и почему может сломаться, а не просто следую чек-листу вслепую.
 
-- **Инструменты:** ручное тестирование, Chrome DevTools (Network), Postman Desktop, DBeaver, SQL, GitLab
+- **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Postman Desktop, DBeaver, SQL, Lighthouse, Android Studio + AVD Manager, Logcat, Docker (`docker compose logs`), `grep`, GitLab
 - **Фокус:** функциональное тестирование, тест-дизайн, API-тестирование, регресс, баг-репортинг
 - **Язык:** русский
 
