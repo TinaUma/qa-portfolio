@@ -1,0 +1,37 @@
+name: QA Tests
+
+# Запускается при каждом push и pull request в master
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ui-tests:
+    name: UI Tests (Playwright → staging.sortula.ru)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install pytest pytest-playwright allure-pytest
+
+      - name: Install Playwright browsers
+        run: playwright install chromium
+
+      - name: Run UI tests
+        run: |
+          pytest cases/001-registration-form/automation/ui/test_register_via_ui.py -v
+
+# Примечание: API-тесты (test_register_basic.py, test_register_negative.py)
+# и DB-тест (test_register_db_verify.py) требуют локального Docker-стека Sortula
+# (localhost:8001 + localhost:5433) — запускаются только локально.
