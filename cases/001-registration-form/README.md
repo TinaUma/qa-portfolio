@@ -22,6 +22,7 @@
 |---|---|---|---|
 | 9 | pytest + requests | дубликат email 409, параметризованные негативные | ✅ 5 passed, 0.41s |
 | 13 | Playwright (UI) | кнопка disabled без чекбокса, успешная регистрация → `.alert-success` | ✅ 2 passed, 6.65s |
+| 14 | Allure-отчёты | `@allure.title`, `@allure.step`, `@allure.severity` на UI-тестах → HTML-дашборд | ✅ 2 passed, отчёт сгенерирован |
 
 **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, pytest, requests, Playwright, декомпозиция входных данных, exploratory-тестирование по чартеру.
 

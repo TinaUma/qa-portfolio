@@ -81,6 +81,28 @@ pytest test_register_negative.py -v
 
 ---
 
+## Allure-отчёты (Спринт 14)
+
+**Что добавлено:** декораторы `@allure.title`, `@allure.description`, `@allure.severity` и `allure.step()` к UI-тестам.
+
+**Запуск с Allure:**
+```bash
+pytest ui/ -v --alluredir=ui/allure-results
+allure serve ui/allure-results
+```
+
+| Декоратор | Где применён | Результат в отчёте |
+|---|---|---|
+| `@allure.title("...")` | Оба теста | Читаемое название вместо имени функции |
+| `@allure.severity(CRITICAL)` | Оба теста | Приоритет в дашборде |
+| `with allure.step("...")` | Каждый шаг | Раскрываемые шаги в деталях теста |
+
+**Результат прогона:** 2 passed, 4.93s — отчёт открывается в браузере
+
+**Скрины Allure-отчёта:** `../evidence/sprint-14/`
+
+---
+
 ## Связь с ручным тестированием
 
 Эти тесты автоматизируют сценарии из:
