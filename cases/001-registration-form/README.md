@@ -16,7 +16,14 @@
 - Систематическая ошибка в сообщениях валидации для кириллических email
 - Утечка технического ответа API вместо человекочитаемого сообщения об ошибке
 
-**Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, декомпозиция входных данных, exploratory-тестирование по чартеру.
+**Автоматизация:**
+
+| Спринт | Инструмент | Тесты | Результат |
+|---|---|---|---|
+| 9 | pytest + requests | дубликат email 409, параметризованные негативные | ✅ 5 passed, 0.41s |
+| 13 | Playwright (UI) | кнопка disabled без чекбокса, успешная регистрация → `.alert-success` | ✅ 2 passed, 6.65s |
+
+**Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, pytest, requests, Playwright, декомпозиция входных данных, exploratory-тестирование по чартеру.
 
 **Методология:** каждая находка проверена на воспроизводимость минимум дважды. Открытые зоны из UI-слоя закрыты в API-слое через прямые запросы к коду и БД — баги фиксируются фактами, не предположениями.
 
