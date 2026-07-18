@@ -1,4 +1,6 @@
-# Автоматизированное тестирование: Регистрация (Спринты 9–15)
+# Автоматизированное тестирование: Регистрация (Спринты 9–16)
+
+![QA Tests](https://github.com/TinaUma/qa-portfolio/actions/workflows/tests.yml/badge.svg)
 
 **Тестировщик:** Тина Юмашева
 **Дата:** 15.07.2026 – 18.07.2026 (продолжается)
@@ -119,6 +121,27 @@ allure serve ui/allure-results
 **Результат прогона:** 1 passed, 2.24s
 
 **Скрин прогона:** `../evidence/sprint-14/psycopg2-cross-layer-passed.PNG`
+
+---
+
+## CI/CD: GitHub Actions (Спринт 16)
+
+**Файл:** `.github/workflows/tests.yml`  
+**Триггер:** push и pull_request в ветку master  
+**Среда:** ubuntu-latest (GitHub-сервер)
+
+**Что делает pipeline:**
+1. `actions/checkout@v4` — скачивает код
+2. `setup-python@v5` — устанавливает Python 3.12
+3. `pip install pytest pytest-playwright allure-pytest` — зависимости
+4. `playwright install chromium` — браузер
+5. `pytest test_register_via_ui.py -v` — запускает UI-тесты против staging.sortula.ru
+
+**Результат первого прогона:** ✅ passed, 39s
+
+**Почему API/DB тесты не в CI:** они требуют локального Docker-стека Sortula (localhost:8001 + localhost:5433) — в GitHub-среде его нет. Это нормально: часть тестов запускается только локально.
+
+**Скрины:** `../evidence/sprint-16/`
 
 ---
 
