@@ -103,6 +103,25 @@ allure serve ui/allure-results
 
 ---
 
+## Сквозной тест: psycopg2 (Спринт 15)
+
+**Файл:** `ui/test_register_db_verify.py`  
+**Тип:** cross-layer test — API → PostgreSQL верификация  
+**Среда:** localhost:8001 (backend) + localhost:5433 (postgres, Docker dev-стек)  
+**Запуск:** `pytest ui/test_register_db_verify.py -v`
+
+| Тест | Что проверяет | Результат |
+|---|---|---|
+| `test_register_via_api_verified_in_db` | POST /v1/auth/register → SELECT из users | ✅ PASSED |
+
+**Ключевое понимание:** UI-тесты и DB-верификация должны работать в одной среде. Смешивание staging UI + локальная БД даёт ложное падение — это не баг кода, а баг тестовой конфигурации.
+
+**Результат прогона:** 1 passed, 2.24s
+
+**Скрин прогона:** `../evidence/sprint-14/psycopg2-cross-layer-passed.PNG`
+
+---
+
 ## Связь с ручным тестированием
 
 Эти тесты автоматизируют сценарии из:
