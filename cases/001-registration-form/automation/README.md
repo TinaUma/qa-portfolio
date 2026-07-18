@@ -1,9 +1,9 @@
-# Автоматизированное тестирование: Регистрация (Спринт 9)
+# Автоматизированное тестирование: Регистрация (Спринты 9–13)
 
 **Тестировщик:** Тина Юмашева
-**Дата:** 15.07.2026
-**Окружение:** localhost:8001 (Docker dev-стек Sortula)
-**Инструменты:** Python 3.12, pytest 9.0, requests
+**Дата:** 15.07.2026 – 18.07.2026
+**Окружение:** localhost:8001 (API-тесты) | staging.sortula.ru (UI-тесты)
+**Инструменты:** Python 3.12, pytest 9.0, requests, Playwright (pytest-playwright)
 
 ---
 
@@ -61,6 +61,23 @@ pytest -v
 # Запустить один файл
 pytest test_register_negative.py -v
 ```
+
+---
+
+## UI-тесты: Playwright (Спринт 13)
+
+**Файл:** `ui/test_register_via_ui.py`  
+**Окружение:** staging.sortula.ru  
+**Запуск:** `pytest ui/ -v`  
+
+| Тест | Что проверяет | Локатор | Результат |
+|---|---|---|---|
+| `test_submit_disabled_without_terms` | Кнопка disabled без чекбокса | `[data-testid="register-submit"]` | ✅ PASSED |
+| `test_register_via_ui` | Успешная регистрация → `.alert-success` | `[data-testid="register-email"]`, `[data-testid="register-terms"]` | ✅ PASSED |
+
+**Результат прогона:** 2 passed, 6.65s
+
+**Скрины ручной проверки локаторов:** `../evidence/sprint-13/`
 
 ---
 
