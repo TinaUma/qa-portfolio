@@ -12,7 +12,7 @@
 
 | № | Название | Тип | Статус |
 |---|---|---|---|
-| 001 | Тестирование формы регистрации/авторизации (staging.sortula.ru) | Ручное UI, API (Postman), БД (SQL/DBeaver), логи, мобилка, pytest + requests, Playwright (UI), Allure-отчёты | Завершён — 14 дефектов, 7 автотестов, Allure HTML-отчёт |
+| 001 | Тестирование формы регистрации/авторизации (staging.sortula.ru) | Ручное UI, API (Postman), БД (SQL/DBeaver), логи, мобилка, pytest + requests, Playwright (UI), Allure-отчёты, Page Object Model, Service Object | Завершён — 14 дефектов, 10 автотестов, POM + Service Object архитектура |
 
 ---
 
@@ -38,8 +38,8 @@ cases/
 
 Перехожу в QA Engineering с бэкграундом в AI-разработке. Понимаю кодовую базу изнутри — это помогает тестировать осознанно: я вижу, что и почему может сломаться, а не просто следую чек-листу вслепую.
 
-- **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Postman Desktop, DBeaver, SQL, Lighthouse, Android Studio + AVD Manager, Logcat, Docker, `grep`, GitLab · pytest, requests, Playwright, Allure
-- **Фокус:** функциональное тестирование, тест-дизайн, API-тестирование, UI-автоматизация, регресс, баг-репортинг
+- **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Postman Desktop, DBeaver, SQL, Lighthouse, Android Studio + AVD Manager, Logcat, Docker, `grep`, GitLab · pytest, requests, Playwright, Allure, psycopg2, GitHub Actions, Page Object Model, Service Object
+- **Фокус:** функциональное тестирование, тест-дизайн, API-тестирование, UI-автоматизация, архитектура тестовых фреймворков, регресс, баг-репортинг
 - **Язык:** русский
 
 **AI-инженерное портфолио:** [tinacodes.space](https://tinacodes.space)

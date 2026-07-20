@@ -1,9 +1,9 @@
-# Автоматизированное тестирование: Регистрация (Спринты 9–16)
+# Автоматизированное тестирование: Регистрация (Спринты 9–18)
 
 ![QA Tests](https://github.com/TinaUma/qa-portfolio/actions/workflows/tests.yml/badge.svg)
 
 **Тестировщик:** Тина Юмашева
-**Дата:** 15.07.2026 – 18.07.2026 (продолжается)
+**Дата:** 15.07.2026 – 20.07.2026 (продолжается)
 **Окружение:** localhost:8001 (API-тесты) | staging.sortula.ru (UI-тесты)
 **Инструменты:** Python 3.12, pytest 9.0, requests, Playwright (pytest-playwright)
 
@@ -142,6 +142,36 @@ allure serve ui/allure-results
 **Почему API/DB тесты не в CI:** они требуют локального Docker-стека Sortula (localhost:8001 + localhost:5433) — в GitHub-среде его нет. Это нормально: часть тестов запускается только локально.
 
 **Скрины:** `../evidence/sprint-16/`
+
+---
+
+## Page Object Model + Service Object (Спринт 18)
+
+**Что изменилось:** рефакторинг под архитектурные паттерны Middle-уровня.
+
+**Структура после рефакторинга:**
+
+```
+automation/
+├── pages/
+│   └── register_page.py    ← RegisterPage: локаторы и действия UI
+├── services/
+│   └── auth_service.py     ← AuthService: URL и структура API-запросов
+└── ui/
+    ├── test_register_via_ui.py      ← только сценарий, нет .locator()
+    └── test_register_db_verify.py   ← только сценарий, нет requests.post()
+```
+
+**Принцип:** каждый слой знает своё. Тест знает **что** проверить. PageObject знает **где** найти элемент. AuthService знает **как** вызвать API. Если локатор или URL меняется — правишь в одном месте.
+
+| Файл | До рефакторинга | После |
+|---|---|---|
+| `test_register_via_ui.py` | `page.locator('[data-testid="..."]')` прямо в тесте | `register_page.fill_email(email)` |
+| `test_register_db_verify.py` | `requests.post("http://localhost:8001/...")` прямо в тесте | `auth.register(email)` |
+
+**Результат:** pytest ui/ -v → **2 passed**; pytest ui/test_register_db_verify.py -v → **1 passed**
+
+**Скрины:** `../evidence/sprint-18/`
 
 ---
 

@@ -1,22 +1,20 @@
-"""Спринт 13/14-16 — UI-тест: регистрация через форму на staging.sortula.ru.
+"""Спринт 13/14-16/18 — UI-тест: регистрация через форму на staging.sortula.ru.
 
-Что проверяем:
-  1. Кнопка отправки заблокирована без принятия условий (негативный сценарий)
-  2. Успешная регистрация через UI показывает блок .alert-success
+Спринт 18: рефакторинг под Page Object Model.
+Локаторы вынесены в pages/register_page.py — тест читается как сценарий.
 
-Инструменты: Playwright (pytest-playwright) + Allure-отчёты.
 Запуск: pytest ui/ -v
         pytest ui/ -v --headed
-        pytest ui/ -v --alluredir=allure-results   # с Allure
+        pytest ui/ -v --alluredir=allure-results
 """
 
 import uuid
 
 import allure
 import pytest
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
-BASE_URL = "https://staging.sortula.ru"
+from pages.register_page import RegisterPage
 
 
 @allure.title("Негативный: кнопка submit disabled без принятия условий")
@@ -25,14 +23,13 @@ BASE_URL = "https://staging.sortula.ru"
 )
 @allure.severity(allure.severity_level.CRITICAL)
 def test_submit_disabled_without_terms(page: Page):
-    """Негативный сценарий: кнопка неактивна, пока не приняты условия использования."""
+    register_page = RegisterPage(page)
+
     with allure.step("Открыть страницу регистрации"):
-        page.goto(f"{BASE_URL}/register")
-        page.wait_for_load_state("networkidle")
+        register_page.open()
 
     with allure.step("Проверить что кнопка submit disabled"):
-        submit = page.locator('[data-testid="register-submit"]')
-        expect(submit).to_be_disabled()
+        register_page.expect_submit_disabled()
 
 
 @allure.title("Успешная регистрация: появляется .alert-success")
@@ -41,22 +38,20 @@ def test_submit_disabled_without_terms(page: Page):
 )
 @allure.severity(allure.severity_level.CRITICAL)
 def test_register_via_ui(page: Page):
-    """Успешная регистрация: после отправки формы появляется .alert-success."""
     email = f"tina-ui-{uuid.uuid4().hex[:8]}@example.com"
+    register_page = RegisterPage(page)
 
-    with allure.step(f"Открыть страницу регистрации"):
-        page.goto(f"{BASE_URL}/register")
-        page.wait_for_load_state("networkidle")
+    with allure.step("Открыть страницу регистрации"):
+        register_page.open()
 
     with allure.step(f"Ввести email: {email}"):
-        page.locator('[data-testid="register-email"]').fill(email)
+        register_page.fill_email(email)
 
-    with allure.step("Принять условия использования (checkbox terms)"):
-        page.locator('[data-testid="register-terms"]').check()
+    with allure.step("Принять условия использования"):
+        register_page.accept_terms()
 
     with allure.step("Нажать кнопку Зарегистрироваться"):
-        page.locator('[data-testid="register-submit"]').click()
+        register_page.submit()
 
     with allure.step("Проверить появление .alert-success"):
-        success_alert = page.locator(".alert-success")
-        expect(success_alert).to_be_visible(timeout=5000)
+        register_page.expect_success()

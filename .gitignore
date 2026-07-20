@@ -3,6 +3,9 @@
 .tausik/
 .push_ticket.json
 
+# Allure temp files (генерируются при запуске, не хранить в репо)
+allure-results/
+
 # OS
 .DS_Store
 Thumbs.db
