@@ -62,7 +62,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install pytest psycopg2-binary allure-pytest
+        run: pip install pytest psycopg2-binary allure-pytest requests
 
       - name: Run DB infrastructure tests
         env:
