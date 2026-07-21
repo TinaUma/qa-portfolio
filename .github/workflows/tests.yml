@@ -32,6 +32,47 @@ jobs:
         run: |
           pytest cases/001-registration-form/automation/ui/test_register_via_ui.py -v
 
+
+  db-tests:
+    name: DB Tests (psycopg2 → postgres:15)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: sortula_test
+          POSTGRES_USER: sortula_user
+          POSTGRES_PASSWORD: sortula_password
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pytest psycopg2-binary allure-pytest
+
+      - name: Run DB infrastructure tests
+        env:
+          DB_PORT: 5433
+          DB_NAME: sortula_test
+          DB_USER: sortula_user
+          DB_PASSWORD: sortula_password
+        run: |
+          pytest cases/001-registration-form/automation/ui/test_db_direct.py -v
+
 # Примечание: API-тесты (test_register_basic.py, test_register_negative.py)
 # и DB-тест (test_register_db_verify.py) требуют локального Docker-стека Sortula
 # (localhost:8001 + localhost:5433) — запускаются только локально.
