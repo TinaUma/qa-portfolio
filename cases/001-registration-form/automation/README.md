@@ -175,6 +175,41 @@ automation/
 
 ---
 
+## Docker + PostgreSQL service в CI (Спринт 19)
+
+**Что добавлено:** второй CI job с PostgreSQL-контейнером — инфраструктурный smoke test работает в GitHub Actions без локального Docker-стека Sortula.
+
+**Структура после спринта 19:**
+
+```
+.github/workflows/tests.yml
+├── job: ui-tests    ← Playwright → staging.sortula.ru (как раньше)
+└── job: db-tests    ← psycopg2 → postgres:15 контейнер (новый)
+    └── services:
+        └── postgres:15 с health-check (pg_isready)
+```
+
+**Новый тест:** `ui/test_db_direct.py`
+
+| Тест | Что проверяет | Результат |
+|---|---|---|
+| `test_db_connection` | psycopg2 подключается к PostgreSQL | ✅ PASSED |
+| `test_db_insert_and_select` | CREATE TABLE → INSERT → SELECT → cleanup | ✅ PASSED |
+
+**Ключевые понятия:**
+- `services: postgres:` в GitHub Actions — GitHub поднимает контейнер перед запуском steps
+- `health-check: pg_isready` — pipeline ждёт готовности БД, не запускает тест раньше времени
+- `os.getenv("DB_NAME", "sortula")` — конфиг через env-переменные: локально берёт `sortula`, в CI переопределяется на `sortula_test`
+- `conftest.py` загружается для всех тестов в поддиректориях — все его зависимости нужны во всех job-ах
+
+**Почему не `test_register_db_verify.py` в CI:** он делает POST на `localhost:8001` (backend) — в CI его нет. `test_db_direct.py` обходит это: тестирует только PostgreSQL-слой напрямую.
+
+**Результат в CI:** оба job параллельно — `ui-tests` 33s + `db-tests` 32s → **Success**
+
+**Скрины:** `../evidence/sprint-19/`
+
+---
+
 ## Связь с ручным тестированием
 
 Эти тесты автоматизируют сценарии из:

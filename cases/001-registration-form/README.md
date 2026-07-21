@@ -26,6 +26,7 @@
 | 15 | psycopg2 (cross-layer) | API-регистрация → SELECT из users — вся цепочка в одной среде | ✅ 1 passed, 2.24s |
 | 16 | CI/CD GitHub Actions | `.github/workflows/tests.yml` — UI-тесты запускаются автоматически при каждом push | ✅ passed, 39s |
 | 18 | Page Object Model + Service Object | `pages/register_page.py` (RegisterPage), `services/auth_service.py` (AuthService) — локаторы и URL вынесены из тестов | ✅ 3 passed после рефакторинга |
+| 19 | Docker + PostgreSQL service в CI | `services: postgres:15` в GitHub Actions, `test_db_direct.py` — инфраструктурный DB smoke test | ✅ 2 passed в CI (параллельно с UI-тестами) |
 
 **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, pytest, requests, Playwright, декомпозиция входных данных, exploratory-тестирование по чартеру.
 
