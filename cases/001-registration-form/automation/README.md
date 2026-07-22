@@ -239,6 +239,74 @@ automation/
 
 ---
 
+## Контрактное тестирование: Pact (Спринт 21)
+
+**Файл:** `ui/test_register_pact.py`
+**Тип:** Consumer-Driven Contract Testing — без Docker, без backend, без сети
+**Запуск:** `pytest ui/test_register_pact.py -v`
+**Контракт:** `ui/pacts/qa-portfolio-sortula-backend.json`
+
+| Тест | Состояние (given) | Ожидаемый статус | Результат |
+|---|---|---|---|
+| `test_register_success` | пользователь не существует | 201 | ✅ PASSED |
+| `test_register_duplicate_email` | пользователь уже существует | 409 | ✅ PASSED |
+| `test_register_invalid_email` | невалидный формат email | 422 | ✅ PASSED |
+
+**Результат прогона:** 3 passed, 0.14s
+
+**Как устроен тест:**
+
+```python
+# Все взаимодействия описаны заранее — до старта mock-сервера
+p.upon_receiving("POST-запрос регистрации нового email")
+ .given("пользователь не существует")
+ .with_request("POST", "/v1/auth/register")
+ .with_body({"email": "new@example.com"})
+ .will_respond_with(201)
+
+# Pact запускает mock-сервер — backend не нужен
+with p.serve() as srv:
+    response = AuthService(base_url=str(srv.url)).register("new@example.com")
+    # → hits mock server, gets 201
+```
+
+**Сгенерированный контракт (фрагмент `qa-portfolio-sortula-backend.json`):**
+
+```json
+{
+  "consumer": { "name": "qa-portfolio" },
+  "provider": { "name": "sortula-backend" },
+  "interactions": [
+    {
+      "description": "POST-запрос регистрации нового email",
+      "providerStates": [{ "name": "пользователь не существует" }],
+      "request": {
+        "method": "POST",
+        "path": "/v1/auth/register",
+        "body": { "content": { "email": "new@example.com" } }
+      },
+      "response": { "status": 201 }
+    }
+  ],
+  "metadata": { "pactSpecification": { "version": "4.0" } }
+}
+```
+
+**Ключевые концепции:**
+- `upon_receiving` + `given` — описание взаимодействия и состояния провайдера
+- `with_body` — ожидаемое тело запроса (consumer говорит что пошлёт)
+- `will_respond_with` — что consumer ожидает получить
+- `p.serve()` — Pact запускает настоящий HTTP mock-сервер на localhost
+- `write_file()` — сохраняет контракт в JSON-файл (артефакт для провайдера)
+
+**Отличие от pytest-mock (Спринт 20):**
+- Sprint 20: подменяем `requests.post` в памяти — нет HTTP-запроса вообще
+- Sprint 21: Pact поднимает реальный HTTP-сервер — запрос уходит, но не в Sortula
+
+**Скрины:** `../evidence/sprint-21/`
+
+---
+
 ## Связь с ручным тестированием
 
 Эти тесты автоматизируют сценарии из:
