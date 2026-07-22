@@ -210,6 +210,35 @@ automation/
 
 ---
 
+## pytest-mock — изоляция тестов (Спринт 20)
+
+**Файл:** `ui/test_register_mocked.py`
+**Тип:** unit-уровень с моками — без Docker, без backend, без сети
+**Запуск:** `pytest ui/test_register_mocked.py -v`
+
+| Тест | Что мокаем | Механизм | Результат |
+|---|---|---|---|
+| `test_register_success` | `requests.post` → 201 | `return_value` | ✅ PASSED |
+| `test_register_duplicate_email` | `requests.post` → 409 | `return_value` | ✅ PASSED |
+| `test_register_invalid_email` | `requests.post` → 422 | `return_value` | ✅ PASSED |
+| `test_register_server_error` | `requests.post` → 500 | `return_value` | ✅ PASSED |
+| `test_register_timeout` | Timeout исключение | `side_effect` | ✅ PASSED |
+| `test_register_connection_error` | ConnectionError исключение | `side_effect` | ✅ PASSED |
+
+**Результат прогона:** 6 passed, 0.03s — в 130 раз быстрее DB-теста из Спринта 19.
+
+**Ключевые концепции:**
+- `mocker.patch("services.auth_service.requests.post")` — патчим там где используется, не где определено
+- `return_value` — что вернуть вместо реального ответа сервера
+- `side_effect` — какое исключение бросить (Timeout, ConnectionError)
+- `mock.assert_called_once()` — проверяем что запрос был сделан ровно 1 раз
+
+**Почему без Docker:** `mocker.patch` перехватывает вызов до того как он уходит в сеть. Сервер не знает что его вызвали — потому что его и не вызывали.
+
+**Скрины:** `../evidence/sprint-20/`
+
+---
+
 ## Связь с ручным тестированием
 
 Эти тесты автоматизируют сценарии из:

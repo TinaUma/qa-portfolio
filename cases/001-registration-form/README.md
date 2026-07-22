@@ -27,6 +27,7 @@
 | 16 | CI/CD GitHub Actions | `.github/workflows/tests.yml` — UI-тесты запускаются автоматически при каждом push | ✅ passed, 39s |
 | 18 | Page Object Model + Service Object | `pages/register_page.py` (RegisterPage), `services/auth_service.py` (AuthService) — локаторы и URL вынесены из тестов | ✅ 3 passed после рефакторинга |
 | 19 | Docker + PostgreSQL service в CI | `services: postgres:15` в GitHub Actions, `test_db_direct.py` — инфраструктурный DB smoke test | ✅ 2 passed в CI (параллельно с UI-тестами) |
+| 20 | pytest-mock — изоляция тестов | `test_register_mocked.py` — 6 тестов с `mocker.patch`: return_value (201/409/422/500) + side_effect (Timeout/ConnectionError). Без Docker, без backend | ✅ 6 passed, 0.03s локально + CI job зелёный |
 
 **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, pytest, requests, Playwright, декомпозиция входных данных, exploratory-тестирование по чартеру.
 
