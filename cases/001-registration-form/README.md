@@ -29,6 +29,7 @@
 | 19 | Docker + PostgreSQL service в CI | `services: postgres:15` в GitHub Actions, `test_db_direct.py` — инфраструктурный DB smoke test | ✅ 2 passed в CI (параллельно с UI-тестами) |
 | 20 | pytest-mock — изоляция тестов | `test_register_mocked.py` — 6 тестов с `mocker.patch`: return_value (201/409/422/500) + side_effect (Timeout/ConnectionError). Без Docker, без backend | ✅ 6 passed, 0.03s локально + CI job зелёный |
 | 21 | Pact — контрактное тестирование | `test_register_pact.py` — 3 Consumer-Driven Contract теста, Pact v4 mock-сервер. Генерирует `qa-portfolio-sortula-backend.json` | ✅ 3 passed, 0.14s + CI job зелёный |
+| 22–23 | Locust — нагрузочное тестирование | `load/locustfile.py` — 2 сценария (new/duplicate), 20 пользователей. Прогон 1: staging, обнаружен rate limiter (429). Прогон 2: localhost, чистые метрики | ✅ Staging: rate limit найден; Localhost: 0% failures, 1616 запросов, p50=3ms, p95=5ms |
 
 **Инструменты:** ручное тестирование, Chrome DevTools (Network + Device Mode), Lighthouse, Postman Desktop, DBeaver, SQL (SELECT/WHERE), Android Studio, AVD Manager, Logcat, pytest, requests, Playwright, декомпозиция входных данных, exploratory-тестирование по чартеру.
 
