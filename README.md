@@ -13,6 +13,7 @@
 | № | Название | Тип | Статус |
 |---|---|---|---|
 | 001 | Тестирование формы регистрации/авторизации (staging.sortula.ru) | Ручное UI, API (Postman), БД (SQL/DBeaver), логи, мобилка, pytest + requests, Playwright (UI), Allure-отчёты, Page Object Model, Service Object, Docker + PostgreSQL в CI, pytest-mock, Pact (контрактное тестирование), Locust (нагрузочное тестирование) | Завершён — 14 дефектов, 21 автотест + 2 Locust-сценария, POM + Service Object + DB smoke test + моки + Pact контракт в CI + нагрузочные тесты |
+| 002 | Тестирование API (Sortula — Export + Settings) | Integration tests: pytest + httpx + Docker + PostgreSQL (real DB) | Завершён — 1 Critical дефект в production-коде, 13 интеграционных тестов (8 Export API + 5 Settings API) |
 
 ---
 
