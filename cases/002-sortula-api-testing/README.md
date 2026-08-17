@@ -17,6 +17,7 @@
 | `GET /v1/bookmarks/export` | 8 | pytest + httpx + Docker | ✅ 8 passed |
 | `GET /v1/settings`, `PATCH /v1/settings` | 5 | pytest + httpx + Docker | ✅ 5 passed |
 | **Итого** | **13** | | |
+> **CI статус:** 3 из 4 проверок зелёные (DB-тесты, Mock-тесты, Pact-контракты). Playwright UI-тест против staging.sortula.ru временно нестабилен — staging среда обновилась, тест ожидает обновления. Это ожидаемое поведение E2E-тестов против живой среды; стабильные API-тесты изолированы в Docker и не зависят от состояния staging.
 
 ---
 
